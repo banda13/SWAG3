@@ -2,3 +2,6 @@ bin/*.weights
 experiments/
 results/*
 test_data/*
+
+.idea/*
+__pycache__/*
