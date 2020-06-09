@@ -1,0 +1,29 @@
+<div class="">
+    <div class="loading-shade" *ngIf="isLoading">
+        <p>Loading...</p>
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <div class="no-result" *ngIf="noResult">
+            Looks like there is no vehicle on this video
+        </div>
+    </div>
+    <div *ngIf="isLoading == false">
+        <div class="m-3">
+            <mat-grid-list class="m-2" cols="3" rowHeight="500px">
+                <mat-grid-tile *ngFor="let d of data">
+                    <mat-card class="m-5 card">
+                        <mat-card-header>
+                            <mat-card-title>{{d.name}}</mat-card-title>
+                            <mat-card-subtitle>{{d.date}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <img mat-card-image src="{{APIURL}}file?file={{d.preview}}" alt="">
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <a href="/anal?name={{d.name}}" class="text-white">OPEN</a>
+                        </mat-card-actions>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+    </div>
+</div>

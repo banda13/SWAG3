@@ -1,0 +1,11 @@
+<div class="justify-content-center fill mat-elevation-z8 p-5 m-3">
+    <div class="loading-shade" *ngIf="isLoading">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+    <div *ngIf="isLoading == false">
+        <video width="85%" height="60%" controls>
+            <source src="{{videoURL}}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>

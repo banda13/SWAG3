@@ -1,0 +1,30 @@
+<div class="m-5 p-5 ">
+    <div class="justify-content-center text-center" >
+        <h1 class="title"><strong>SWAG Analitics dashboard</strong></h1>
+        <div *ngIf="isLoading">
+            <mat-progress-bar class="mat-accent" mode="determinate" [value]="progress"></mat-progress-bar>
+        </div>
+    </div>
+    <mat-grid-list cols="4">
+        <mat-grid-tile colspan="2" rowspan="1">
+            <app-swag-statistic class="fill justify-content-center" [objects]="objects" [name]="name"
+                [isLoading]="isLoading"></app-swag-statistic>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1">
+            <app-swag-video class="fill justify-content-center" [name]="name" [isLoading]="videoLoading">
+            </app-swag-video>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="4" rowspan="2">
+            <app-swag-table class="fill justify-content-center" [objects]="objects" [name]="name"
+                [isLoading]="isLoading"></app-swag-table>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="4" rowspan="1.5">
+            <app-swag-charts class="fill justify-content-center" [objects]="objects" [name]="name"
+                [isLoading]="isLoading"></app-swag-charts>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="4" rowspan="1">
+            <app-swag-logs class="fill justify-content-center" [logtext]="logs" [isLoading]="logLoading">
+            </app-swag-logs>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

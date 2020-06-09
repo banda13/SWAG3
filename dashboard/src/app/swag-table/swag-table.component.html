@@ -1,0 +1,65 @@
+<div class="justify-content-center fill mat-elevation-z8 p-5 m-3">
+    <div class="m-5">
+        <div>
+            <mat-form-field>
+                <mat-label>Search for anything</mat-label>
+                <input autofocus matInput (keyup)="applyFilter($event)">
+            </mat-form-field>
+        </div>
+        <div>
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="objectId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let row"> {{row.objectId}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="first_appear">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Appear </th>
+                    <td mat-cell *matCellDef="let row"> {{row.first_appear}} sec</td>
+                </ng-container>
+
+                <ng-container matColumnDef="last_appear">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Disappear </th>
+                    <td mat-cell *matCellDef="let row"> {{row.last_appear}} sec</td>
+                </ng-container>
+
+                <ng-container matColumnDef="avg_speed">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Speed </th>
+                    <td mat-cell *matCellDef="let row"> {{row.avg_speed}} km/h</td>
+                </ng-container>
+
+                <ng-container matColumnDef="label">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Labels </th>
+                    <td mat-cell *matCellDef="let row"> {{row.label}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="precision">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Precision </th>
+                    <td mat-cell *matCellDef="let row"> {{row.precision}} %</td>
+                </ng-container>
+
+                <ng-container matColumnDef="image_path">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Images </th>
+                    <td class="p-3" mat-cell *matCellDef="let row"> <img mat-card-image
+                            src="{{apiUrl}}object_image?name={{name}}&id={{row.objectId}}" width="100px" height="100px"
+                            alt=""> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="direction">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Direciton </th>
+                    <td mat-cell *matCellDef="let row"> {{row.direction}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+
+            </table>
+        </div>
+        <div>
+            <mat-paginator class="pb-3" [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"
+                showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

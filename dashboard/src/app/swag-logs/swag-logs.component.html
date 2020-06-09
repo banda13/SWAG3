@@ -1,0 +1,12 @@
+<div class="justify-content-center fill mat-elevation-z8 p-5 m-3">
+    <div class="loading-shade" *ngIf="isLoading">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+    <div *ngIf="isLoading == false">
+        <span class="header"><strong>Logs</strong></span>
+        <mat-form-field class="fill">
+            <textarea class="textarea" matInput disabled cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="10">{{logtext}}</textarea>
+        </mat-form-field>
+    </div>
+</div>

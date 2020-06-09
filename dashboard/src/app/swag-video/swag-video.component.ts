@@ -1,0 +1,30 @@
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+
+@Component({
+  selector: 'app-swag-video',
+  templateUrl: './swag-video.component.html',
+  styleUrls: ['./swag-video.component.css']
+})
+export class SwagVideoComponent implements OnInit {
+
+  @Input()
+  name: String;
+
+  @Input()
+  isLoading: Boolean;
+
+  apiUrl = "http://178.48.246.170:1235/"
+  videoURL : String;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['name'] && changes['name'] != null) {
+      this.videoURL = this.apiUrl + "static/" + this.name + "/output.mp4";
+    }
+  }
+
+}

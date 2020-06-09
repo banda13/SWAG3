@@ -1,0 +1,62 @@
+<div class="justify-content-center fill mat-elevation-z8 p-5 m-3">
+    <div class="loading-shade" *ngIf="isLoading">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+    <div *ngIf="isLoading == false">
+        <br>
+        <div class="row">
+            <div class="col">
+                <strong>Name:</strong>
+            </div>
+            <div class="col">
+                {{name}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <strong>Length:</strong>
+            </div>
+            <div class="col">
+                {{length}} second
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <strong>Average speed:</strong>
+            </div>
+            <div class="col">
+                {{avgSpeed}} km/h
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <strong>Main direction(s):</strong>
+            </div>
+            <div class="col">
+                {{mainDirection}}
+            </div>
+        </div>
+        <hr>
+        <div class="row" *ngFor="let d of categories | keyvalue">
+            <div class="col">
+                <strong>{{d.key}}:</strong>
+            </div>
+            <div class="col">
+                {{d.value}}
+            </div>
+            <hr>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <strong>Total vehicle passed:</strong>
+            </div>
+            <div class="col">
+                {{totalCount}}
+            </div>
+        </div>
+    </div>
+</div>
