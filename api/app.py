@@ -28,11 +28,12 @@ def items():
     response = []
     results = os.listdir("..\\results\\")
     for r in results:
-        response.append({
-            "name": r,
-            "preview": "results\\" + r + "\\preview.png",
-            "date": datetime.datetime.fromtimestamp(os.stat("..\\results\\" + r).st_mtime)
-        })
+        if r != "keep.txt":
+            response.append({
+                "name": r,
+                "preview": "results\\" + r + "\\preview.png",
+                "date": datetime.datetime.fromtimestamp(os.stat("..\\results\\" + r).st_mtime)
+            })
     return jsonify(response)
 
 

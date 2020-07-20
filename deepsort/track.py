@@ -1,4 +1,5 @@
 # vim: expandtab:ts=4:sw=4
+from swag_model import SwagModel
 
 
 class TrackState:
@@ -63,7 +64,7 @@ class Track:
 
     """
 
-    def __init__(self, mean, covariance, track_id, n_init, max_age,
+    def __init__(self, mean, covariance, track_id, n_init, max_age, time_stamp,
                  feature=None):
         self.mean = mean
         self.covariance = covariance
@@ -79,6 +80,9 @@ class Track:
 
         self._n_init = n_init
         self._max_age = max_age
+        self.box = self.get_box()
+        self.centroid = self.get_centroid()
+        self.first_appear = time_stamp
 
     def to_tlwh(self):
         """Get current position in bounding box format `(top left x, top left y,
@@ -120,6 +124,8 @@ class Track:
 
         """
         self.mean, self.covariance = kf.predict(self.mean, self.covariance)
+        self.box = self.get_box()
+        self.centroid = self.get_centroid()
         self.age += 1
         self.time_since_update += 1
 
@@ -137,6 +143,8 @@ class Track:
         """
         self.mean, self.covariance = kf.update(
             self.mean, self.covariance, detection.to_xyah())
+        self.box = self.get_box()
+        self.centroid = self.get_centroid()
         self.features.append(detection.feature)
 
         self.hits += 1
@@ -164,3 +172,15 @@ class Track:
     def is_deleted(self):
         """Returns True if this track is dead and should be deleted."""
         return self.state == TrackState.Deleted
+
+    # SWAG compatibility utils
+    def to_swag_object(self):
+        return SwagModel(self.track_id, self.centroid, self.box, self.first_appear)
+
+    def get_box(self):
+        box = [int(i) for i in self.to_tlbr()]
+        return box
+
+    def get_centroid(self):
+        box = self.to_tlbr()
+        return [int((box[0] + box[2]) / 2), int((box[1] + box[3]) / 2)]

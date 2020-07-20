@@ -3,6 +3,7 @@ import cv2
 import time
 import shutil
 
+from swag_deep_tracker import SwagDeepTracker
 from swag_logger import Logger
 from swag_output_writer import OutputWriter
 from swag_speed_detector import SpeedCalculator
@@ -38,6 +39,7 @@ class SWAG:
 
         # initializing tracker
         self.tracker = SwagTracker(self.logger)
+        self.deep_tracker = SwagDeepTracker(self.logger)
 
         # initialize speed detector
         self.speed_detector = SpeedCalculator(self.logger, "cfg/pixel_scale_map.txt", measurement_freq=self.fps/2, fps=self.fps)
@@ -61,8 +63,8 @@ class SWAG:
 
                 result = self.yolo.detect(frame)
                 objects = self.tracker.update(result,curr_time, i)
+                # objects = self.deep_tracker.update(result, curr_time, i, frame)
                 objects = self.speed_detector.calculate_speeds(i, objects)
-                objects = list(objects.values())
 
                 draw_frame = frame.copy()
                 if self.show:
@@ -95,7 +97,7 @@ class SWAG:
 
 
 if __name__ == '__main__':
-    input_path = "test_data/test5.mp4"
+    input_path = "test_data/test.mp4"
     configPath = "cfg/yolov4.cfg"
     weightPath = "bin/yolov4.weights"
     metaPath = "data/coco.data"

@@ -30,8 +30,7 @@ class Detection(object):
         self.box = box
         self.tlwh = self.to_tlwh()
         self.confidence = float(confidence)
-        self.feature = feature
-
+        self.feature = np.asarray(feature, dtype=np.float32)
 
     def to_tlbr(self):
         """Convert bounding box to format `(min x, min y, max x, max y)`, i.e.,
@@ -48,7 +47,7 @@ class Detection(object):
         """Convert bounding box to format `(center x, center y, aspect ratio,
         height)`, where the aspect ratio is `width / height`.
         """
-        ret = self.tlwh.copy()
+        ret = self.tlwh.copy().astype(float)
         ret[:2] += ret[2:] / 2
         ret[2] /= ret[3]
         return ret

@@ -21,10 +21,21 @@ class SwagModel:
 
     def __init__(self, objectID, centroids, box, first_appear):
         self.objectId = objectID
-        self.centroids = centroids.tolist()
+        if type(centroids) == np.ndarray:
+            self.centroids = centroids.tolist()
+        elif type(centroids) == list:
+            self.centroids = centroids
+        else:
+            raise Exception("Invalid type for centroids: {}".format(type(centroids)))
+
         self.move_vector = None
         self.move_direction = {}
-        self.box = box.tolist() # xmin, ymin, xmax, ymax
+        if type(box) == np.ndarray:
+            self.box = box.tolist() # xmin, ymin, xmax, ymax
+        elif type(box) == list:
+            self.box = box
+        else:
+            raise Exception("Invalid type for box: {}".format(type(box)))
         self.appearance_counter = 0
 
         self.centroid_history = [] # need to handle this with a limit

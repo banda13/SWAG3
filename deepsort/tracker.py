@@ -55,13 +55,14 @@ class Tracker:
         for track in self.tracks:
             track.predict(self.kf)
 
-    def update(self, detections):
+    def update(self, detections, time_stamp):
         """Perform measurement update and track management.
 
         Parameters
         ----------
         detections : List[deep_sort.detection.Detection]
             A list of detections at the current time step.
+        time_stamp:  Current time in sec
 
         """
         # Run matching cascade.
@@ -75,7 +76,7 @@ class Tracker:
         for track_idx in unmatched_tracks:
             self.tracks[track_idx].mark_missed()
         for detection_idx in unmatched_detections:
-            self._initiate_track(detections[detection_idx])
+            self._initiate_track(detections[detection_idx], time_stamp)
         self.tracks = [t for t in self.tracks if not t.is_deleted()]
 
         # Update distance metric.
@@ -130,9 +131,17 @@ class Tracker:
         unmatched_tracks = list(set(unmatched_tracks_a + unmatched_tracks_b))
         return matches, unmatched_tracks, unmatched_detections
 
-    def _initiate_track(self, detection):
+    def _initiate_track(self, detection, time_stamp):
         mean, covariance = self.kf.initiate(detection.to_xyah())
+        f = detection.feature
         self.tracks.append(Track(
             mean, covariance, self._next_id, self.n_init, self.max_age,
-            detection.feature))
+            time_stamp, f))
         self._next_id += 1
+
+    def get_tracks_as_swag(self):
+        swags = []
+        for t in self.tracks:
+            if t.is_confirmed():
+                swags.append(t.to_swag_object())
+        return swags

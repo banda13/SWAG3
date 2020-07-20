@@ -38,7 +38,8 @@ class SwagTracker:
 
     def deregister(self, objectID, time_data):
         self.current_objects[objectID].last_appear = time_data
-        self.current_objects[objectID].count_me = True
+        if self.current_objects[objectID].appearance_counter > 3:
+            self.current_objects[objectID].count_me = True
         self.all_tracked_objects.append(self.current_objects[objectID])
 
         del self.current_objects[objectID]
@@ -120,4 +121,4 @@ class SwagTracker:
                 for col in unused_cols:
                     self.register(input_centroids[col], input_boxes[col], time_data)
         self.avg_execution_sec = (self.avg_execution_sec + (time.time() - start_t)) / 2
-        return self.current_objects
+        return list(self.current_objects.values())

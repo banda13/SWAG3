@@ -3,6 +3,7 @@ import random
 import numpy as np
 from tqdm import tqdm
 
+from swag_logger import Logger
 from swag_model import SwagModel
 from swag_speed_detector import SpeedCalculator
 from swag_tracker import SwagTracker
@@ -23,16 +24,19 @@ class SWAGPreprocessor:
         self.width = int(self.cap.get(3))
         self.height = int(self.cap.get(4))
 
+        # initialize mock logger
+        self.logger = Logger("preprocess", None)
+
         # initializing yolo
-        self.yolo = YOLO(configPath, weightPath, metaPath, self.width, self.height)
+        self.yolo = YOLO(self.logger, configPath, weightPath, metaPath, self.width, self.height)
 
         # initializing tracker
-        self.tracker = SwagTracker()
+        self.tracker = SwagTracker(self.logger)
         self.tracker.min_visibility = 1
         self.tracker.max_disappeared = 1
 
         # initializing visualizer
-        self.visualizer = SwagVisualizer()
+        self.visualizer = SwagVisualizer(self.logger)
 
         # initialize model
         SwagModel.centroid_history = 99999 # just carefull, but need to remember to occurence place
@@ -56,7 +60,7 @@ class SWAGPreprocessor:
             for o in list(self.tracker.current_objects.values()):
                 if o.box[0] < x < o.box[2] and o.box[1] < y < o.box[3]:
                     selected_car = o
-                    print("Type the real word distances for the selected car and press enter to continue")
+                    print("Type the real word distances in meter for the selected car and press enter to continue")
                     width = input("Width:")
                     height = input("Height:")
                     if selected_car not in self.selected_cars.keys():
@@ -78,8 +82,6 @@ class SWAGPreprocessor:
 
     def process(self):
         # crate a pixel-meter scale map
-
-
         disappear_centers = []
         appear_centers = []
         move_vectors = []

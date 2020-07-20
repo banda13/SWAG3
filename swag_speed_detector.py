@@ -47,7 +47,7 @@ class SpeedCalculator:
     def calculate_speeds(self, frame_id, objects):
         start_t = time.time()
         if frame_id % self.measurement_freq == 0:
-            for (objectID, swag) in objects.items():
+            for swag in objects:
                 self.predict_speed(swag)
         self.avg_execution_sec = (self.avg_execution_sec + (time.time() - start_t)) / 2
         return objects

@@ -84,9 +84,10 @@ class YOLO:
                          detection[2][3]
             xmin, ymin, xmax, ymax = self.convertBack(float(x), float(y), float(w), float(h))
             label = detection[0].decode()
-            if label in ['car', 'truck', 'bicycle', 'bus', 'motorbike']: # temporary while I can buy a new videocard with enough memory
+            if label in ['car', 'truck', 'bicycle', 'bus', 'motorbike']: # temporary while I can buy a new videocard with enough memory to train
                 final_detection.append([np.array([xmin, ymin, xmax, ymax]),
                     label,
-                    detection[1]])
+                    detection[1],
+                    detection[2]])
         self.avg_execution_sec = (self.avg_execution_sec + (time.time() - start_t)) / 2
         return final_detection
