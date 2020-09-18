@@ -9,8 +9,8 @@
     <div *ngIf="isLoading == false">
         <div class="m-3">
             <mat-grid-list class="m-2" cols="3" rowHeight="500px">
-                <mat-grid-tile *ngFor="let d of data">
-                    <mat-card class="m-5 card">
+                <mat-grid-tile class="p-5 m-3" *ngFor="let d of data">
+                    <mat-card class="m-5 p-5 card">
                         <mat-card-header>
                             <mat-card-title>{{d.name}}</mat-card-title>
                             <mat-card-subtitle>{{d.date}}</mat-card-subtitle>
@@ -23,6 +23,9 @@
                         </mat-card-actions>
                     </mat-card>
                 </mat-grid-tile>
+                <br>
+                <br>
+                <hr>
             </mat-grid-list>
         </div>
     </div>

@@ -6,13 +6,13 @@
         <span class="header"><strong>Charts</strong></span>
         <hr>
         <div class="row pb-5">
-            <div class="col">
+            <div class="col-6">
                 <div class="m-5" style="display: block">
                     <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels"
                         [chartType]="pieChartType"></canvas>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <div class="m-5" style="display: block">
                     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
                         [legend]="barChartLegend" [chartType]="barChartType">

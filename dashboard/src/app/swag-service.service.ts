@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-const APIURL = "http://178.48.246.170:1235/"
+const APIURL = "http://localhost/"
 
 @Injectable({
   providedIn: 'root'
