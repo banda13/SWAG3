@@ -10,7 +10,7 @@ import { SwagServiceService } from '../swag-service.service';
 })
 export class MenuComponent implements OnInit {
 
-  APIURL = "http://178.48.246.170:1235/"
+  APIURL = "http://localhost/"
   isLoading = true;
   data = [];
   noResult = false;

@@ -13,7 +13,7 @@ export class SwagVideoComponent implements OnInit {
   @Input()
   isLoading: Boolean;
 
-  apiUrl = "http://178.48.246.170:1235/"
+  apiUrl = "http://localhost/"
   videoURL : String;
 
   constructor() { }

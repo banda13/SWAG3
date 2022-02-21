@@ -21,7 +21,7 @@ export class SwagTableComponent implements OnInit {
   @Input()
   isLoading: Boolean;
 
-  apiUrl = "http://178.48.246.170:1235/"
+  apiUrl = "http://localhost/"
   displayedColumns: string[] = ['objectId', 'label', "precision", "direction", "image_path", "first_appear", "last_appear", "avg_speed"];
   dataSource: MatTableDataSource<SwagObject>;
   resultsLength = 0;
